@@ -1,6 +1,7 @@
 package generic.form;
 
 import generic.listeners.LookupListener;
+import hibernate.entityBeans.StockDocument;
 
 import java.awt.CardLayout;
 import java.lang.reflect.InvocationTargetException;
@@ -20,6 +21,7 @@ import util.EntityObject;
 import util.ServerResponse;
 import utils.ReflectUtil;
 import custom.forms.CustomFormsFactory;
+import custom.forms.stockdocuments.StockDocumentInputForm;
 
 public class GenericForm extends JPanel {
 
@@ -201,6 +203,10 @@ public class GenericForm extends JPanel {
 					i++;
 				}
 				ServerResponse sr = RemotesManager.getInstance().getGenericPersistenceRemote().selectFetchEntity(Class.forName(getEntityMetadata().getEntityClassPath()), getEntityMetadata().getPrimKeyFieldDBName(), ((EntityObject)selectedObject).getID(), arr);
+				if(genericInputFormI instanceof StockDocumentInputForm){
+					StockDocumentInputForm st = (StockDocumentInputForm) genericInputFormI;
+					st.getSubjectsChooser().getCombo().setEnabled(false);
+				}
 				genericInputFormI.populateData(sr.getData());
 				cl.show(this, "EditForm");
 				
@@ -210,6 +216,10 @@ public class GenericForm extends JPanel {
 				cl.show(this, "SearchForm");
 				break;
 			default: // insert state
+				if(genericInputFormI instanceof StockDocumentInputForm){
+					StockDocumentInputForm st = (StockDocumentInputForm) genericInputFormI;
+					st.getSubjectsChooser().getCombo().setEnabled(true);
+				}
 					genericInputFormI.populateData(Class.forName(getEntityMetadata().getEntityClassPath()).newInstance());
 					genericInputFormI.reset();
 				cl.show(this, "EditForm");

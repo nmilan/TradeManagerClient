@@ -27,6 +27,9 @@ import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import custom.forms.payment.InputFilterForm;
+import custom.forms.payment.PaymentForm;
+
 import localization.Local;
 import remotes.RemotesManager;
 import util.ServerResponse;
@@ -36,12 +39,9 @@ import actions.generic.OpenEntityAction;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1729233823098776690L;
 	private JMenuBar menuBar;
-	private JMenu toolMenu;
-	private JMenu skinMenu;
 	private JTabbedPane tabbedPane = null;
 	private JLabel stanjeLabela = new JLabel("Opcija:");
 	private JPanel contentPanel = null, statusPanel = null;
-	private JToolBar toolBar = null;
 	private MenuBarMetadata menuMeta = null;
 	private ArrayList<JDialog> zoomNextDialogs = null;
 
@@ -68,7 +68,6 @@ public class MainFrame extends JFrame {
 		
 		FormsHolder.getInstance();
 
-		toolBar = new JToolBar();
 
 		contentPanel.add(tabbedPane, BorderLayout.CENTER);
 		contentPanel.add(statusPanel, BorderLayout.SOUTH);
@@ -123,7 +122,18 @@ public class MainFrame extends JFrame {
 		tab.requestFocus();
 		stanjeLabela.setText("Opcija: "+tabName);
 	}
-	
+	public void addNewTabPanel(String tabName, JPanel tab){
+		if(tabbedPane.indexOfComponent(tab)==-1){
+			tabbedPane.addTab(tabName, tab);
+			int index = tabbedPane.indexOfComponent(tab);
+			initTabComponent(index);
+			tabbedPane.setSelectedIndex(index);
+		}else{
+			tabbedPane.setSelectedComponent(tab);
+		}
+		tab.requestFocus();
+		stanjeLabela.setText("Opcija: "+tabName);
+	}
 	public GenericForm getPenultimateForm(){
 		if(zoomNextDialogs.size()>1){
 			return (GenericForm) zoomNextDialogs.get(zoomNextDialogs.size()-2).getContentPane();
@@ -139,7 +149,17 @@ public class MainFrame extends JFrame {
 			return (GenericForm) zoomNextDialogs.get(zoomNextDialogs.size()-1).getContentPane();
 		}
 		if(tabbedPane.getSelectedComponent()!=null){
-			return (GenericForm) tabbedPane.getSelectedComponent();
+			if(tabbedPane.getSelectedComponent() instanceof GenericForm)
+				return (GenericForm) tabbedPane.getSelectedComponent();
+			if(tabbedPane.getSelectedComponent() instanceof PaymentForm){
+			
+			}
+		}
+		return null;
+	}
+	public PaymentForm getCurrentCustomForm(){
+		if(tabbedPane.getSelectedComponent()!=null){
+		return (PaymentForm) tabbedPane.getSelectedComponent();
 		}
 		return null;
 	}
@@ -201,6 +221,10 @@ public class MainFrame extends JFrame {
 			addSubmanu(mm, m);
 			menuBar.add(m);
 		}
+		JMenu paymentMenu = new JMenu(Local.getString("PAYMENT"));
+		paymentMenu.add(ActionManager.getInstance().getPaymentAction());
+		paymentMenu.add(ActionManager.getInstance().getViewWhoNotPayAction());
+		menuBar.add(paymentMenu);
 		JMenu helpMenu = new JMenu(Local.getString("HELP"));
 		
 		helpMenu.add(ActionManager.getInstance().getAboutAction());
@@ -217,4 +241,13 @@ public class MainFrame extends JFrame {
 //		menuBar.add(radniciMenu);
 //		menuBar.add(toolMenu);
 	}
+
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
+
+	public void setTabbedPane(JTabbedPane tabbedPane) {
+		this.tabbedPane = tabbedPane;
+	}
+	
 }

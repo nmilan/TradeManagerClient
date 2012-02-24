@@ -11,6 +11,7 @@ import generic.tablerenderers.DoubleRenderer;
 import generic.tablerenderers.IntegerRenderer;
 import generic.tablerenderers.PriceRenderer;
 import generic.tablerenderers.StringRenderer;
+import hibernate.entityBeans.StockDocument;
 import hibernate.facades.MetadataFacade;
 
 import java.awt.BorderLayout;
@@ -111,6 +112,14 @@ public class GenericViewForm extends JPanel {
 				}
 				tableModel.setEntities((ArrayList<Object>) dataResponse
 						.getData());
+//				ArrayList<Object> documents =(ArrayList<Object>) dataResponse
+//						.getData();
+//				for(Object o:documents){
+//					StockDocument s = (StockDocument)o;
+//					s.setPaid(s.getPaidPay());
+//					ServerResponse response = null;
+//					response = RemotesManager.getInstance().getGenericPersistenceRemote().updateEntity(s);
+//				}
 			} else if (formType == FormType.Zoom) {
 				if (filteredLoad) {
 					dataResponse = RemotesManager.getInstance()
@@ -129,6 +138,7 @@ public class GenericViewForm extends JPanel {
 				}
 				tableModel.setEntities((ArrayList<Object>) dataResponse
 						.getData());
+				
 			} else if (formType == FormType.Next) {
 				String getter = "get" + parentEntity.getPrimKeyFieldName();
 				Method m = ReflectUtil.getMethod(parent, getter);

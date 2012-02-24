@@ -5,6 +5,8 @@ import generic.events.LookupEvent;
 import generic.form.components.LookupTextInput;
 import generic.listeners.LookupListener;
 import generic.tools.MessageObject;
+import hibernate.entityBeans.StockDocument;
+import hibernate.entityBeans.StockDocumentPayment;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -229,6 +231,10 @@ public class GenericInputForm extends JPanel implements GenericInputFormI, Looku
 			GenericForm gf = Appliction.getInstance().getCurrentForm();
 			if(id==null){
 				gf.addNextChild(gf.getGenericInputForm().getData());
+			}
+			if (gf.getParentObject() instanceof StockDocument) {
+				StockDocument sp = (StockDocument) gf.getParentObject() ;
+				sp.setPaid(sp.getPaidPay());
 			}
 			response = RemotesManager.getInstance().getGenericPersistenceRemote().updateEntity(gf.getParentObject());
 		}

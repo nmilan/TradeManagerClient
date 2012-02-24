@@ -6,6 +6,12 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import actions.custom.AddPaymentCustomAction;
+import actions.custom.CancelCustomAction;
+import actions.custom.DeletePaymentCustomAction;
+import actions.custom.OkCustomAction;
+import actions.custom.SaveCustomAction;
+import actions.custom.WhoNotPayPrintAction;
 import actions.generic.AboutAction;
 import actions.generic.AddAction;
 import actions.generic.CancelAction;
@@ -14,6 +20,7 @@ import actions.generic.DeleteAction;
 import actions.generic.DoSearchAction;
 import actions.generic.DownAction;
 import actions.generic.EditAction;
+import actions.generic.ViewPaymentAction;
 import actions.generic.PrintDetailsAction;
 import actions.generic.PrintListAction;
 import actions.generic.RowCountAction;
@@ -22,6 +29,7 @@ import actions.generic.SearchAction;
 import actions.generic.SelectFirstAction;
 import actions.generic.SelectLastAction;
 import actions.generic.UpAction;
+import actions.generic.ViewWhoNotPayAction;
 
 /**
  * @author Nenad Nikolic, indeks: 10/06
@@ -51,6 +59,14 @@ public class ActionManager implements Serializable{
 	private PrintDetailsAction printDetailsAction = null;
 	private AboutAction aboutAction = null;
 	private PrintListAction printListAction = null;
+	private ViewPaymentAction paymentAction = null;
+	private OkCustomAction okCustomAction = null;
+	private SaveCustomAction saveCustomAction = null;
+	private CancelCustomAction cancelCustomAction = null;
+	private DeletePaymentCustomAction deletePaymentCustomAction = null;
+	private AddPaymentCustomAction addPaymentCustomAction = null;
+	private ViewWhoNotPayAction viewWhoNotPayAction = null;
+	private WhoNotPayPrintAction whoNotPayPrintAction = null;
 	
 	private ActionManager() {
 	}
@@ -80,6 +96,14 @@ public class ActionManager implements Serializable{
 		printDetailsAction = new PrintDetailsAction();
 		aboutAction = new AboutAction();
 		printListAction = new PrintListAction();
+		paymentAction = new ViewPaymentAction();
+		okCustomAction = new OkCustomAction();
+		saveCustomAction = new SaveCustomAction();
+		cancelCustomAction = new CancelCustomAction();
+		deletePaymentCustomAction = new DeletePaymentCustomAction();
+		addPaymentCustomAction = new AddPaymentCustomAction();
+		viewWhoNotPayAction = new ViewWhoNotPayAction();
+		whoNotPayPrintAction = new WhoNotPayPrintAction();
 	}
 	
 	public ChildrenPopupAction getChildrenPopupAction() {
@@ -146,6 +170,40 @@ public class ActionManager implements Serializable{
 		return printListAction;
 	}
 	
+	public ViewPaymentAction getPaymentAction() {
+		return paymentAction;
+	}
+
+	public OkCustomAction getOkCustomAction() {
+		return okCustomAction;
+	}
+
+	public SaveCustomAction getSaveCustomAction() {
+		return saveCustomAction;
+	}
+
+	public CancelCustomAction getCancelCustomAction() {
+		return cancelCustomAction;
+	}
+
+	public DeletePaymentCustomAction getDeletePaymentCustomAction() {
+		return deletePaymentCustomAction;
+	}
+
+	public AddPaymentCustomAction getAddPaymentCustomAction() {
+		return addPaymentCustomAction;
+	}
+
+	public ViewWhoNotPayAction getViewWhoNotPayAction() {
+		return viewWhoNotPayAction;
+	}
+
+	
+
+	public WhoNotPayPrintAction getWhoNotPayPrintAction() {
+		return whoNotPayPrintAction;
+	}
+
 	public void setAccelerators(JPanel p){
 //		JPanel p = ((JPanel)Appliction.getInstance().getMainFrame().getContentPane());
 		p.registerKeyboardAction(saveAction, (KeyStroke)saveAction.getValue(CustomAbstractAction.ACCELERATOR_KEY), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);

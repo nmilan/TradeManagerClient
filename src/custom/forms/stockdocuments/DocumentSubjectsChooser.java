@@ -314,6 +314,10 @@ public class DocumentSubjectsChooser extends JPanel implements LookupListener{
 		return message;
 	}
 
+	public JComboBox getCombo() {
+		return combo;
+	}
+
 	private class ComboModel extends AbstractListModel implements ComboBoxModel{
 
 		private List<DocumentType> data = null;

@@ -153,7 +153,7 @@ public class StockDocumentInputForm extends JPanel implements GenericInputFormI{
 				return sr;
 			}
 		}
-		
+		System.out.println(stockDocument.getID());
 		if(stockDocument.getID()==null){
 			sr = RemotesManager.getInstance().getStockDocumentRemote().insertStockDocument(stockDocument);
 			stockDocument = (StockDocument) sr.getData();
@@ -228,6 +228,10 @@ public class StockDocumentInputForm extends JPanel implements GenericInputFormI{
 		}else{
 			Appliction.getInstance().getPopupProgressBar().setVisible(false);
 		}
+	}
+
+	public DocumentSubjectsChooser getSubjectsChooser() {
+		return subjectsChooser;
 	}
 
 	@Override

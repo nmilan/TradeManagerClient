@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import model.metadata.EntityMetadata;
 
+import custom.forms.payment.PaymentForm;
 import custom.forms.salesprice.SalesPriceInputForm;
 import custom.forms.stockdocuments.StockDocumentInputForm;
 

@@ -212,6 +212,7 @@ public class NewDocumentItemPanel extends JPanel implements LookupListener, Acti
 				}
 				currItem = new StockDocumentItem();
 			}
+			((JTextField)lookupComp.getComponent(0)).requestFocus();
 		}
 		bindData();
 	}

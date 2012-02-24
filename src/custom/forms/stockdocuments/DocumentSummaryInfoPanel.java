@@ -88,6 +88,7 @@ public class DocumentSummaryInfoPanel extends JPanel implements TableDataChanged
 		
 		if(stockDocument.getPaymentDay()!=null){
 			payPeriod = DateUtil.getDateDayDifference(stockDocument.getCreationTime(), stockDocument.getPaymentDay());
+			System.out.println(payPeriod);
 		}
 		
 		totalBasicPriceField.setText(currencyFormatter.format(basicprice));
@@ -104,7 +105,6 @@ public class DocumentSummaryInfoPanel extends JPanel implements TableDataChanged
 		}
 		
 		totalPaymentsField.setText(currencyFormatter.format(totalPayments));
-		
 		payPeriodField.setText(Integer.toString(payPeriod));
 	}
 	
@@ -117,7 +117,8 @@ public class DocumentSummaryInfoPanel extends JPanel implements TableDataChanged
 		if(stockDocument.getCreationTime()==null){
 			stockDocument.setCreationTime(new Date());
 		}
-		
+		System.out.println(stockDocument.getCreationTime());
+		System.out.println(DateUtil.addDaysToDate(stockDocument.getCreationTime(), payPeriod));
 		stockDocument.setPaymentDay(DateUtil.addDaysToDate(stockDocument.getCreationTime(), payPeriod));
 	}
 	
